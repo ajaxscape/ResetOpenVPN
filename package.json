@@ -1,0 +1,15 @@
+{
+  "name": "ResetOpenVPN",
+  "version": "1.0.0",
+  "description": "Split client.ovpn",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Ben Surgison",
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "^0.26.2",
+    "lodash": "^3.10.1"
+  }
+}
