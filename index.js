@@ -19,10 +19,17 @@ fs.watch(sourceDir, function (event, filename) {
             if (exists) {
                 var data = fs.readFileSync(filename).toString();
 
+                var keys = '\n';
+
                 _.each(files, function (file, tag) {
-                    fs.writeFileSync(targetDir + '/' + file, data.substring(data.indexOf('<' + tag + '>') + tag.length + 2, data.indexOf('</' + tag + '>')).trim('/n'));
+                    keys += '\n' + tag + ' ' + file;
+                    fs.writeFileSync(targetDir + '/' + file, data.substring(data.indexOf('<' + tag + '>') + tag.length + 2, data.indexOf('</' + tag + '>')).trim('\n'));
                 });
 
+                var pos = data.indexOf('</tls-auth>') + 11;
+                fs.writeFileSync(targetDir + '/client.ovpn', [data.slice(0, pos), keys, data.slice(pos)].join(''));
+
+                fs.unlinkSync(filename);
             }
         });
     }
